@@ -1,2 +1,26 @@
 # AWM
- Code for One-shot Neural Backdoor Erasing via Adversarial Weight Masking (NeurIPS 2022)
+ 
+This repository contains our implementation of [One-shot Neural Backdoor Erasing via Adversarial Weight Masking](https://arxiv.org/abs/2207.04497) (accepted by NeurIPS 2022). \[[openreview](https://openreview.net/forum?id=Yb3dRKY170h)\]
+
+
+## Environment
+
+To run AWM on cifar10 under trojan-wm attack:
+```ruby
+python AWM.py --dataset cifar10 --anp-alpha 0.9 --print-every 50 --batch-size 32 --sample 10 --trigger-norm 100 --attack trojan-wm
+```
+
+We have released some checkpoints: https://drive.google.com/drive/folders/150Egil8yrot3ppdROf39fXDvh8jYYDvl?usp=sharing
+
+
+## Citation
+Please check our paper for technical details and full results. If you find our paper useful, please cite:
+
+```
+@article{chai2022one,
+  title={One-shot Neural Backdoor Erasing via Adversarial Weight Masking},
+  author={Chai, Shuwen and Chen, Jinghui},
+  journal={arXiv preprint arXiv:2207.04497},
+  year={2022}
+}
+```
