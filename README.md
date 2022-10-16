@@ -21,10 +21,11 @@ We have released some checkpoints: https://drive.google.com/drive/folders/150Egi
 Please check our paper for technical details and full results. If you find our paper useful, please cite:
 
 ```
-@article{chai2022one,
-  title={One-shot Neural Backdoor Erasing via Adversarial Weight Masking},
-  author={Chai, Shuwen and Chen, Jinghui},
-  journal={arXiv preprint arXiv:2207.04497},
-  year={2022}
+@inproceedings{
+chai2022oneshot,
+title={One-shot Neural Backdoor Erasing via Adversarial Weight Masking},
+author={Shuwen Chai and Jinghui Chen},
+booktitle={Thirty-Sixth Conference on Neural Information Processing Systems},
+year={2022}
 }
 ```
