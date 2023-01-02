@@ -11,7 +11,9 @@ This repository contains our implementation of [One-shot Neural Backdoor Erasing
 ## Usage Examples:
 
 ```ruby
-python AWM.py --dataset gtsrb --batch-size 32 --sample 43 --trigger-norm 100 --attack a2a --arch small_vgg
+python main.py --dataset cifar10 --batch-size 128 --sample 500 --attack trojan-sq
+python main.py --dataset gtsrb --batch-size 32 --sample 43 --trigger-norm 100 --attack a2a --arch small_vgg
+python main.py --dataset cifar10 --batch-size 32 --sample 10 --trigger-norm 100 --attack badnets --alpha 0.99
 ```
 
 We have released some checkpoints: https://drive.google.com/drive/folders/150Egil8yrot3ppdROf39fXDvh8jYYDvl?usp=sharing
