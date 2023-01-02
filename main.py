@@ -247,8 +247,6 @@ def main():
         my_lr_scheduler.step()
 
     torch.save(net.state_dict(), os.path.join(args.output_dir, 'WashedNet.th'))
-    vis_mask(net)
-
 
 def load_state_dict(net, orig_state_dict):
     if 'state_dict' in orig_state_dict.keys():
