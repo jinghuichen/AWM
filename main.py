@@ -4,27 +4,25 @@ import time
 import argparse
 from tkinter import W
 import numpy as np
+import models
+import h5py
+import random
 from collections import OrderedDict
 import torch
 from torch.utils.data import DataLoader, RandomSampler, TensorDataset
 from torchvision.datasets import CIFAR10
 import torchvision.transforms as transforms
-import torch.nn.functional as F
-
-import models
 import torch.nn as nn
-from poi_util import patching_test, patching_test_wanet
-import h5py
-import random
+import torch.nn.functional as F
+from poi_util import *
 import data.poison_cifar as poison
 
 
 parser = argparse.ArgumentParser(description='Train poisoned networks')
 
-# Basic model parameters.
+# Basic parameters.
 parser.add_argument('--arch', type=str, default='resnet18',
                     choices=['resnet18', 'MobileNetV2', 'vgg19_bn', 'small_vgg', 'ShuffleNetV2'])
-#parser.add_argument('--checkpoint', type=str, required=True, help='The checkpoint direc')
 parser.add_argument('--batch-size', type=int, default=128, help='the batch size for dataloader')
 parser.add_argument('--outer', type=int, default=20, help='the number of outer optimization epochs')
 parser.add_argument('--inner', type=int, default=5, help='do inner optimization for several epochs')
@@ -52,9 +50,6 @@ args_dict = vars(args)
 os.makedirs(args.output_dir, exist_ok=True)
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-#from datafree.utils import ImagePool
-#data_pool1 = ImagePool(root='trigger_beforeshrink')
-#data_pool2 = ImagePool(root='trigger_aftershrink')
 
 def main():
     data_transforms = transforms.Compose([
@@ -153,9 +148,6 @@ def main():
         for i in range(10000):
             targ[y_test[i]].append(i)
 
-        #for i in range(args.num_classes):
-            #print(y_test[targ[i]])
-
         indx = [targ[i][1] for i in range(args.num_classes)]
 
         x_val = x_test[indx]
@@ -247,6 +239,7 @@ def main():
         my_lr_scheduler.step()
 
     torch.save(net.state_dict(), os.path.join(args.output_dir, 'WashedNet.th'))
+
 
 def load_state_dict(net, orig_state_dict):
     if 'state_dict' in orig_state_dict.keys():
@@ -344,7 +337,7 @@ def mask_train(model, criterion, mask_opt, data_loader):
         
         perturbed_images = torch.clamp(images + pert[0], min=0, max=1)
         
-        # step 2: calculate noisey loss and clean loss
+        # step 2: calculate noisy loss and clean loss
         mask_opt.zero_grad()
         
         output_noise = model(perturbed_images)
