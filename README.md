@@ -17,7 +17,7 @@ python main.py --dataset cifar10 --batch-size 32 --sample 10 --trigger-norm 100 
 ```
 
 We have released some checkpoints: https://drive.google.com/drive/folders/150Egil8yrot3ppdROf39fXDvh8jYYDvl?usp=sharing
-Please add the datasets under '/data' folder to use.
+Please add the datasets under `/data` folder to use.
 
 ## Citation
 Please check our paper for technical details and full results. If you find our paper useful, please cite:
