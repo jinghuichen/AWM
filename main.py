@@ -15,7 +15,6 @@ import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.nn.functional as F
 from poi_util import *
-import data.poison_cifar as poison
 
 
 parser = argparse.ArgumentParser(description='Train poisoned networks')
@@ -43,7 +42,7 @@ parser.add_argument('--samples', type=int, default=500)
 
 parser.add_argument('--attack', type=str, default='badnets', choices=['badnets','trojan-sq','trojan-wm','l0-inv','l2-inv','a2a', 'clb', 'blend', 'wanet'])
 parser.add_argument('--dataset', type=str, default='cifar10', choices=['cifar10','gtsrb'])
-
+parser.add_argument('--lr-decay', type=bool, default=False)
 
 args = parser.parse_args()
 args_dict = vars(args)
@@ -235,8 +234,9 @@ def main():
         print('EPOCHS {} \t {:.4f} \t {:.4f} \t {:.4f} \t {:.4f}'.format(
             (i + 1) * args.inner_iters, po_test_loss, po_test_acc,
             cl_test_loss, cl_test_acc))
-
-        my_lr_scheduler.step()
+        
+        if args.lr_decay:
+            my_lr_scheduler.step()
 
     torch.save(net.state_dict(), os.path.join(args.output_dir, 'WashedNet.th'))
 
